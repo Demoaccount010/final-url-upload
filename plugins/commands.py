@@ -6,7 +6,7 @@ from database import (
     set_premium, get_usage, is_premium, create_promo, use_promo,
     get_stats, set_custom_limit, get_premium_expiry, create_referral, get_ref_count
 )
-import database  # to check for activate_premium at runtime
+import database  # to access activate_premium / remove_premium_db if present
 from features import do_broadcast
 
 
@@ -99,20 +99,21 @@ async def give_premium(bot, m):
         expiry = await database.activate_premium(target, days)
         # owner confirmation (styled)
         await m.reply_text(
-            "🎉 <b>Premium Activated</b>\n\n"
+            "🎉 ✨ <b>Premium Activated</b> ✨ 🎉\n\n"
             f"👤 User: <code>{target}</code>\n"
             f"⏳ Duration: <b>{days} day(s)</b>\n"
             f"📅 Expires: <b>{expiry.strftime('%d-%m-%Y')}</b>\n\n"
-            "✅ User has been notified (if not blocked)."
+            "✅ The user has been notified (if not blocked)."
         )
         # notify the user
         try:
             await bot.send_message(
                 target,
-                "🎉 <b>Congratulations — Premium Activated!</b>\n\n"
-                "💎 You now have Premium access. Enjoy unlimited uploads, faster processing and priority.\n\n"
+                "🎉✨ <b>Congratulations — Premium Activated!</b>\n\n"
+                "💎 Your account has been upgraded to <b>Premium</b>.\n"
+                "🚀 Enjoy unlimited uploads, faster processing and priority service.\n\n"
                 f"📅 Valid Until: <b>{expiry.strftime('%d-%m-%Y')}</b>\n\n"
-                "👉 Thank you for using the bot!"
+                "If you face any issue, contact the owner."
             )
         except Exception:
             # user might have blocked the bot / cannot be messaged
@@ -122,15 +123,15 @@ async def give_premium(bot, m):
         # fallback: plain boolean premium (no expiry)
         await set_premium(target, True)
         await m.reply_text(
-            "🎉 <b>Premium Activated</b>\n\n"
+            "🎉 ✨ <b>Premium Activated</b> ✨ 🎉\n\n"
             f"👤 User: <code>{target}</code>\n"
             "⏳ Duration: <b>Unlimited / Not set</b>\n\n"
-            "✅ User has been notified (if not blocked)."
+            "✅ The user has been notified (if not blocked)."
         )
         try:
             await bot.send_message(
                 target,
-                "🎉 <b>Your account has been granted Premium!</b>\n\n"
+                "🎉✨ <b>Your account has been granted Premium!</b>\n\n"
                 "💎 Enjoy unlimited uploads & faster processing. If you think this is a mistake, contact the owner."
             )
         except Exception:
