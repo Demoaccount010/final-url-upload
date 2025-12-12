@@ -98,7 +98,7 @@ Advanced Premium Engine + Promo Code System 🎁
 <b>🌺 Heroku:</b> <a href="https://heroku.com/">Heroku</a>  
 <b>📑 Language:</b> <a href="https://www.python.org/">Python 3.10.5</a>  
 <b>🇵🇲 Framework:</b> <a href="https://docs.pyrogram.org/">Pyrogram 2.0.30</a>  
-<b>👲 Developer:</b> <a href="https://t.me/kinu6">@yoursmileyt6</a>  
+<b>👲 Developer:</b> <a href="https://t.me/yoursmileyt">@yoursmileyt</a>  
 
 ❤️ Dedicated to users like you!
 """
