@@ -73,7 +73,7 @@ async def give_premium(bot, m):
         return await m.reply_text("Invalid user id. Usage: /givepremium <user_id>")
 
     await set_premium(target, True)
-    return await m.reply_text(f"User <code>{target}</code> ko PREMIUM de diya gaya ✅", parse_mode="HTML")
+    return await m.reply_text(f"User <code>{target}</code> ko PREMIUM de diya gaya ✅", parse_mode="html")
 
 
 @Client.on_message(filters.command("removepremium") & filters.private)
@@ -96,7 +96,7 @@ async def remove_premium(bot, m):
         return await m.reply_text("Invalid user id. Usage: /removepremium <user_id>")
 
     await set_premium(target, False)
-    return await m.reply_text(f"User <code>{target}</code> ka PREMIUM hata diya gaya ✅", parse_mode="HTML")
+    return await m.reply_text(f"User <code>{target}</code> ka PREMIUM hata diya gaya ✅", parse_mode="html")
 
 
 from config import Config
@@ -120,7 +120,7 @@ async def create_code(bot, m):
     if len(parts) >= 3:
         code = parts[2]
     doc = await create_promo(code, days)
-    await m.reply_text(f"✅ Promo created: <code>{doc['code']}</code> for {days} days", parse_mode="HTML")
+    await m.reply_text(f"✅ Promo created: <code>{doc['code']}</code> for {days} days", parse_mode="html")
 
 @Client.on_message(filters.command("redeem") & filters.private)
 async def redeem_code(bot, m):
@@ -156,7 +156,7 @@ async def stats_cmd(bot, m):
         f"📊 <b>Bot Stats</b>\n\n"
         f"👥 Total Users: <b>{stats['total_users']}</b>\n"
         f"💎 Premium Users: <b>{stats['premium_users']}</b>\n"
-        f"📁 Tracked Files: <b>{stats['files_count']}</b>", parse_mode="HTML"
+        f"📁 Tracked Files: <b>{stats['files_count']}</b>", parse_mode="html"
     )
 
 @Client.on_message(filters.command("setlimit") & filters.private)
@@ -170,7 +170,7 @@ async def set_limit_cmd(bot, m):
     target = int(parts[1])
     limit = int(parts[2])
     await set_custom_limit(target, limit)
-    await m.reply_text(f"✅ Limit set for <code>{target}</code> to <b>{limit}</b> daily.", parse_mode="HTML")
+    await m.reply_text(f"✅ Limit set for <code>{target}</code> to <b>{limit}</b> daily.", parse_mode="html")
 
 @Client.on_message(filters.command("profile") & filters.private)
 async def profile_cmd(bot, m):
@@ -185,7 +185,7 @@ async def profile_cmd(bot, m):
         f"💎 Premium Expiry: <b>{expiry_text}</b>\n"
         f"🔗 Referrals: <b>{refc}</b>\n\n"
         "⚡ Keep sharing to earn free premium!",
-        parse_mode="HTML"
+        parse_mode="html"
     )
 
 @Client.on_message(filters.command("ref") & filters.private)
