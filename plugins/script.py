@@ -1,13 +1,10 @@
-# plugins/script.py
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
 class Translation:
 
-    # ========================= START TEXT ===========================
-
     START_TEXT = """
-👋✨ <b>Hey {mention}!</b>
+👋✨ <b>Hey {}!</b>
 
 🎉 Welcome to <b>Ultimate URL Uploader Bot</b> 🚀  
 Yaha tum kisi bhi link ko — <b>Video, Audio, Document</b> —  
@@ -27,8 +24,6 @@ seedha <b>Telegram file</b> me convert kar sakte ho ⚡
 Need help? Type /help 🆘  
 Want premium? Type /buy 💎
 """
-
-    # ========================= HELP TEXT ===========================
 
     HELP_TEXT = """
 🆘✨ <b>Help Menu</b>
@@ -52,7 +47,6 @@ Check your usage → /usage
 • No Restrictions 🚫  
 • Priority Queue 🎯  
 • Special Rewards 🎁  
-
 Premium buy → /buy
 
 🔐 <b>Your Commands:</b>
@@ -69,8 +63,6 @@ Premium buy → /buy
 
 Need more help? Just type anything 😊
 """
-
-    # ========================= BUY TEXT ===========================
 
     BUY_TEXT = """
 💎 <b>Premium Plans</b>
@@ -93,8 +85,6 @@ Payment via UPI:
 ⚠️ After payment, send screenshot + your User ID.
 """
 
-    # ========================= ABOUT TEXT ===========================
-
     ABOUT_TEXT = """
 ℹ️ <b>About This Bot</b>
 
@@ -108,16 +98,12 @@ Advanced Premium Engine + Promo Code System 🎁
 <b>🌺 Heroku:</b> <a href="https://heroku.com/">Heroku</a>  
 <b>📑 Language:</b> <a href="https://www.python.org/">Python 3.10.5</a>  
 <b>🇵🇲 Framework:</b> <a href="https://docs.pyrogram.org/">Pyrogram 2.0.30</a>  
-<b>👲 Developer:</b> <a href="https://t.me/yoursmileyt">@yoursmileyt</a>  
+<b>👲 Developer:</b> <a href="https://t.me/kinu6">@yoursmileyt6</a>  
 
 ❤️ Dedicated to users like you!
 """
 
-    # ========================= PING TEXT ===========================
-
     PING_TEXT = "🏓 Pong! Bot is active and running smoother than ever ⚡😎"
-
-    # ========================= PROGRESS BAR ===========================
 
     PROGRESS = """
 🔰 Speed : {3}/s  
@@ -125,8 +111,6 @@ Advanced Premium Engine + Promo Code System 🎁
 🎥 Total Size : {2}  
 ⏳ Time Left : {4}
 """
-
-    # ========================= ID INFO ===========================
 
     ID_TEXT = """
 🆔 Your Telegram ID is :- <code>{}</code>
@@ -142,8 +126,6 @@ Advanced Premium Engine + Promo Code System 🎁
 📑 Language : <b>{}</b>
 👲 Status : <b>{}</b>
 """
-
-    # ========================= BUTTONS ===========================
 
     START_BUTTONS = InlineKeyboardMarkup(
         [
@@ -178,8 +160,6 @@ Advanced Premium Engine + Promo Code System 🎁
     BUTTONS = InlineKeyboardMarkup(
         [[InlineKeyboardButton("📛 Close", callback_data="close")]]
     )
-
-    # ========================= OTHER TEXTS ===========================
 
     FORMAT_SELECTION = "Now Select the desired formats"
     SET_CUSTOM_USERNAME_PASSWORD = """"""
