@@ -16,15 +16,13 @@ from features import do_broadcast
 @Client.on_message(filters.command("start") & filters.private)
 async def start_bot(_bot, m: Message):
 
-    # SAFE REPLACE – EMOJIS SAFE
     text = Translation.START_TEXT.replace("{mention}", m.from_user.mention)
 
     return await m.reply_text(
         text,
         reply_markup=Translation.START_BUTTONS,
         disable_web_page_preview=True,
-        quote=True,
-        parse_mode="HTML"
+        quote=True
     )
 
 
@@ -37,8 +35,7 @@ async def help_bot(_bot, m: Message):
     return await m.reply_text(
         Translation.HELP_TEXT,
         reply_markup=Translation.HELP_BUTTONS,
-        disable_web_page_preview=True,
-        parse_mode="HTML"
+        disable_web_page_preview=True
     )
 
 
@@ -51,8 +48,7 @@ async def aboutme(_bot, m: Message):
     return await m.reply_text(
         Translation.ABOUT_TEXT,
         reply_markup=Translation.ABOUT_BUTTONS,
-        disable_web_page_preview=True,
-        parse_mode="HTML"
+        disable_web_page_preview=True
     )
 
 
@@ -68,7 +64,6 @@ async def buy(bot, m):
         "🔹 No Daily Limit\n"
         "🔹 Fast Processing ⚡\n\n"
         f"📞 Contact Owner: <code>{Config.OWNER_ID}</code>",
-        parse_mode="HTML"
     )
 
 
@@ -82,22 +77,22 @@ async def give_premium(bot, m):
     try:
         owner_id = int(Config.OWNER_ID)
     except:
-        return await m.reply_text("⚠️ OWNER_ID not found in config!", parse_mode="HTML")
+        return await m.reply_text("⚠️ OWNER_ID not set in config!")
 
     if m.from_user.id != owner_id:
-        return await m.reply_text("❌ Only owner can use this command.", parse_mode="HTML")
+        return await m.reply_text("❌ Only owner can use this.")
 
     parts = m.text.split()
     if len(parts) < 2:
-        return await m.reply_text("Usage: /givepremium <user_id>", parse_mode="HTML")
+        return await m.reply_text("Usage: /givepremium <user_id>")
 
     try:
         target = int(parts[1])
     except:
-        return await m.reply_text("❌ Invalid user ID.", parse_mode="HTML")
+        return await m.reply_text("❌ Invalid user ID.")
 
     await set_premium(target, True)
-    return await m.reply_text(f"✅ Premium activated for <code>{target}</code>", parse_mode="HTML")
+    return await m.reply_text(f"✅ Premium activated for <code>{target}</code>")
 
 
 
@@ -107,34 +102,34 @@ async def remove_premium(bot, m):
     try:
         owner_id = int(Config.OWNER_ID)
     except:
-        return await m.reply_text("⚠️ OWNER_ID missing!", parse_mode="HTML")
+        return await m.reply_text("⚠️ OWNER_ID missing!")
 
     if m.from_user.id != owner_id:
-        return await m.reply_text("❌ Only owner can use this command.", parse_mode="HTML")
+        return await m.reply_text("❌ Only owner can use this.")
 
     parts = m.text.split()
     if len(parts) < 2:
-        return await m.reply_text("Usage: /removepremium <user_id>", parse_mode="HTML")
+        return await m.reply_text("Usage: /removepremium <user_id>")
 
     try:
         target = int(parts[1])
     except:
-        return await m.reply_text("❌ Invalid user ID.", parse_mode="HTML")
+        return await m.reply_text("❌ Invalid user ID.")
 
     await set_premium(target, False)
-    return await m.reply_text(f"🗑 Premium removed from <code>{target}</code>", parse_mode="HTML")
+    return await m.reply_text(f"🗑 Premium removed from <code>{target}</code>")
 
 
 
 # ================================================================
-# PROMO / REDEEM
+# CREATE PROMO
 # ================================================================
 @Client.on_message(filters.command("createcode") & filters.private)
 async def create_code(bot, m):
-    owner = int(Config.OWNER_ID)
 
+    owner = int(Config.OWNER_ID)
     if m.from_user.id != owner:
-        return await m.reply_text("❌ Only owner can create promo codes.", parse_mode="HTML")
+        return await m.reply_text("❌ Only owner can create promo codes.")
 
     parts = m.text.split()
     days = 7
@@ -151,31 +146,32 @@ async def create_code(bot, m):
 
     doc = await create_promo(code, days)
     return await m.reply_text(
-        f"🎁 Promo Created!\n\n"
+        f"🎁 Promo Created!\n"
         f"🔑 Code: <code>{doc['code']}</code>\n"
-        f"📅 Valid For: <b>{days} days</b>",
-        parse_mode="HTML"
+        f"📅 Valid: {days} days"
     )
 
 
 
+# ================================================================
+# REDEEM
+# ================================================================
 @Client.on_message(filters.command("redeem") & filters.private)
 async def redeem_code(bot, m):
+
     parts = m.text.split()
     if len(parts) < 2:
-        return await m.reply_text("Usage: /redeem <CODE>", parse_mode="HTML")
+        return await m.reply_text("Usage: /redeem <CODE>")
 
-    code = parts[1].strip().upper()
+    code = parts[1].upper()
     ok, res = await use_promo(code, m.from_user.id)
 
     if not ok:
-        return await m.reply_text(f"❌ {res}", parse_mode="HTML")
+        return await m.reply_text(f"❌ {res}")
 
     expiry = res
     return await m.reply_text(
-        f"🎉 <b>Promo Applied!</b>\n"
-        f"Premium active till: <b>{expiry.strftime('%d-%m-%Y')}</b>",
-        parse_mode="HTML"
+        f"🎉 Promo Applied!\nPremium until: <b>{expiry.strftime('%d-%m-%Y')}</b>"
     )
 
 
@@ -185,23 +181,22 @@ async def redeem_code(bot, m):
 # ================================================================
 @Client.on_message(filters.command("broadcast") & filters.private)
 async def broadcast_cmd(bot, m):
+
     owner = int(Config.OWNER_ID)
-
     if m.from_user.id != owner:
-        return await m.reply_text("❌ Only owner can broadcast.", parse_mode="HTML")
+        return await m.reply_text("❌ Only owner can broadcast.")
 
-    txt = m.text.partition(" ")[2]
-    if not txt:
-        return await m.reply_text("Usage: /broadcast message", parse_mode="HTML")
+    msg = m.text.partition(" ")[2]
+    if not msg:
+        return await m.reply_text("Usage: /broadcast text")
 
-    await m.reply_text("📣 Starting broadcast…", parse_mode="HTML")
-    sent, failed = await do_broadcast(bot, txt)
+    await m.reply_text("📣 Broadcasting started…")
+    sent, failed = await do_broadcast(bot, msg)
 
     return await m.reply_text(
-        f"📡 <b>Broadcast Finished</b>\n"
-        f"✅ Sent: <b>{sent}</b>\n"
-        f"❌ Failed: <b>{failed}</b>",
-        parse_mode="HTML"
+        f"📡 Done!\n"
+        f"✅ Sent: {sent}\n"
+        f"❌ Failed: {failed}"
     )
 
 
@@ -211,19 +206,18 @@ async def broadcast_cmd(bot, m):
 # ================================================================
 @Client.on_message(filters.command("stats") & filters.private)
 async def stats_cmd(bot, m):
-    owner = int(Config.OWNER_ID)
 
+    owner = int(Config.OWNER_ID)
     if m.from_user.id != owner:
-        return await m.reply_text("❌ Only owner can view stats.", parse_mode="HTML")
+        return await m.reply_text("❌ Only owner can view stats.")
 
     stats = await get_stats()
 
     return await m.reply_text(
         f"📊 <b>Bot Stats</b>\n\n"
-        f"👥 Total Users: <b>{stats['total_users']}</b>\n"
-        f"💎 Premium Users: <b>{stats['premium_users']}</b>\n"
-        f"📁 Tracked Files: <b>{stats['files_count']}</b>",
-        parse_mode="HTML"
+        f"👥 Users: <b>{stats['total_users']}</b>\n"
+        f"💎 Premium: <b>{stats['premium_users']}</b>\n"
+        f"📁 Files: <b>{stats['files_count']}</b>"
     )
 
 
@@ -233,14 +227,14 @@ async def stats_cmd(bot, m):
 # ================================================================
 @Client.on_message(filters.command("setlimit") & filters.private)
 async def set_limit_cmd(bot, m):
-    owner = int(Config.OWNER_ID)
 
+    owner = int(Config.OWNER_ID)
     if m.from_user.id != owner:
-        return await m.reply_text("❌ Only owner can set limits.", parse_mode="HTML")
+        return await m.reply_text("❌ Only owner can set limits.")
 
     parts = m.text.split()
     if len(parts) != 3:
-        return await m.reply_text("Usage: /setlimit <user_id> <limit>", parse_mode="HTML")
+        return await m.reply_text("Usage: /setlimit <user_id> <limit>")
 
     target = int(parts[1])
     limit = int(parts[2])
@@ -248,8 +242,9 @@ async def set_limit_cmd(bot, m):
     await set_custom_limit(target, limit)
 
     return await m.reply_text(
-        f"⚙️ Limit Updated\nUser: <code>{target}</code>\nNew Limit: <b>{limit}</b> / day",
-        parse_mode="HTML"
+        f"⚙️ Limit Updated\n"
+        f"User: <code>{target}</code>\n"
+        f"Limit: <b>{limit}</b> /day"
     )
 
 
@@ -262,20 +257,18 @@ async def profile_cmd(bot, m):
 
     usage = await get_usage(m.from_user.id)
     expiry = await get_premium_expiry(m.from_user.id)
-    refc = await get_ref_count(m.from_user.id)
+    ref = await get_ref_count(m.from_user.id)
 
-    expiry_text = expiry.strftime('%d-%m-%Y') if expiry else "Not Premium"
+    expiry_text = expiry.strftime("%d-%m-%Y") if expiry else "Not Premium"
 
-    text = (
-        "👤 <b>Your Profile</b>\n\n"
+    return await m.reply_text(
+        f"👤 <b>Your Profile</b>\n\n"
         f"🆔 ID: <code>{m.from_user.id}</code>\n"
-        f"📊 Used Today: <b>{usage.get('limit_used')}</b> / <b>{usage.get('daily_limit')}</b>\n"
-        f"💎 Premium Expiry: <b>{expiry_text}</b>\n"
-        f"🔗 Referrals: <b>{refc}</b>\n\n"
-        "⚡ Keep sharing to earn free premium!"
+        f"📊 Used Today: {usage.get('limit_used')} / {usage.get('daily_limit')}\n"
+        f"💎 Premium: <b>{expiry_text}</b>\n"
+        f"🔗 Referrals: <b>{ref}</b>\n\n"
+        f"⚡ Enjoy your experience!"
     )
-
-    return await m.reply_text(text, parse_mode="HTML")
 
 
 
@@ -287,9 +280,9 @@ async def ref_cmd(bot, m):
 
     parts = m.text.split()
     if len(parts) != 2:
-        return await m.reply_text("Usage: /ref <referrer_user_id>", parse_mode="HTML")
+        return await m.reply_text("Usage: /ref <referrer_user_id>")
 
     referrer = int(parts[1])
     await create_referral(m.from_user.id, referrer)
 
-    return await m.reply_text("🎉 Referral added successfully!", parse_mode="HTML")
+    return await m.reply_text("🎉 Referral added successfully!")
