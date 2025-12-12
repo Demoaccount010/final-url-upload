@@ -4,6 +4,8 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 class Translation:
 
+    # ========================= START TEXT ===========================
+
     START_TEXT = """
 👋✨ <b>Hey {mention}!</b>
 
@@ -25,6 +27,8 @@ seedha <b>Telegram file</b> me convert kar sakte ho ⚡
 Need help? Type /help 🆘  
 Want premium? Type /buy 💎
 """
+
+    # ========================= HELP TEXT ===========================
 
     HELP_TEXT = """
 🆘✨ <b>Help Menu</b>
@@ -48,9 +52,10 @@ Check your usage → /usage
 • No Restrictions 🚫  
 • Priority Queue 🎯  
 • Special Rewards 🎁  
+
 Premium buy → /buy
 
-🔐 <b>Your Account Commands:</b>
+🔐 <b>Your Commands:</b>
 • /profile → Your plan + usage  
 • /usage → Today’s uploads  
 • /redeem CODE → Promo redeem  
@@ -64,6 +69,8 @@ Premium buy → /buy
 
 Need more help? Just type anything 😊
 """
+
+    # ========================= BUY TEXT ===========================
 
     BUY_TEXT = """
 💎 <b>Premium Plans</b>
@@ -86,6 +93,8 @@ Payment via UPI:
 ⚠️ After payment, send screenshot + your User ID.
 """
 
+    # ========================= ABOUT TEXT ===========================
+
     ABOUT_TEXT = """
 ℹ️ <b>About This Bot</b>
 
@@ -99,30 +108,33 @@ Advanced Premium Engine + Promo Code System 🎁
 <b>🌺 Heroku:</b> <a href="https://heroku.com/">Heroku</a>  
 <b>📑 Language:</b> <a href="https://www.python.org/">Python 3.10.5</a>  
 <b>🇵🇲 Framework:</b> <a href="https://docs.pyrogram.org/">Pyrogram 2.0.30</a>  
-<b>👲 Developer:</b> <a href="https://t.me/yoursmileyt">yoursmileyt</a>  
+<b>👲 Developer:</b> <a href="https://t.me/yoursmileyt">@yoursmileyt</a>  
 
 ❤️ Dedicated to users like you!
 """
 
+    # ========================= PING TEXT ===========================
+
     PING_TEXT = "🏓 Pong! Bot is active and running smoother than ever ⚡😎"
 
+    # ========================= PROGRESS BAR ===========================
+
     PROGRESS = """
-🔰 Speed : {3}/s
-
-🌀 Done : {1}
-
-🎥 Tᴏᴛᴀʟ sɪᴢᴇ : {2}
-
-⏳ Tɪᴍᴇ ʟᴇғᴛ : {4}
+🔰 Speed : {3}/s  
+🌀 Done : {1}  
+🎥 Total Size : {2}  
+⏳ Time Left : {4}
 """
 
+    # ========================= ID INFO ===========================
+
     ID_TEXT = """
-🆔 Your Telegram ID 𝐢𝐬 :- <code>{}</code>
+🆔 Your Telegram ID is :- <code>{}</code>
 """
 
     INFO_TEXT = """
 🤹 First Name : <b>{}</b>
-🚴‍♂️ Second Name : <b>{}</b>
+🚴‍♂️ Last Name : <b>{}</b>
 🧑🏻‍🎓 Username : <b>@{}</b>
 🆔 Telegram Id : <code>{}</code>
 📇 Profile Link : <b>{}</b>
@@ -130,6 +142,8 @@ Advanced Premium Engine + Promo Code System 🎁
 📑 Language : <b>{}</b>
 👲 Status : <b>{}</b>
 """
+
+    # ========================= BUTTONS ===========================
 
     START_BUTTONS = InlineKeyboardMarkup(
         [
@@ -165,23 +179,25 @@ Advanced Premium Engine + Promo Code System 🎁
         [[InlineKeyboardButton("📛 Close", callback_data="close")]]
     )
 
+    # ========================= OTHER TEXTS ===========================
+
     FORMAT_SELECTION = "Now Select the desired formats"
     SET_CUSTOM_USERNAME_PASSWORD = """"""
-    DOWNLOAD_START = "Trying to Download ⌛\n\n <i>{} </i>"
-    UPLOAD_START = "<i>{} </i>\n\n📤 Uploading Please Wait "
+    DOWNLOAD_START = "Trying to Download ⌛\n\n <i>{}</i>"
+    UPLOAD_START = "<i>{}</i>\n\n📤 Uploading Please Wait..."
     RCHD_TG_API_LIMIT = (
         "Downloaded in {} seconds.\nDetected File Size: {}\n"
-        "Sorry. But, I cannot upload files greater than 2GB due to Telegram API limitations."
+        "Sorry, Cannot upload files greater than 2GB due to Telegram limit."
     )
     AFTER_SUCCESSFUL_UPLOAD_MSG_WITH_TS = (
-        "Dᴏᴡɴʟᴏᴀᴅᴇᴅ ɪɴ {} sᴇᴄᴏɴᴅs.\n\nTʜᴀɴᴋs Fᴏʀ Usɪɴɢ Mᴇ\n\nUᴘʟᴏᴀᴅᴇᴅ ɪɴ {} sᴇᴄᴏɴᴅs"
+        "Downloaded in {} seconds.\n\nThanks for using me 😊\n\nUploaded in {} seconds."
     )
-    FF_MPEG_DEL_ETED_CUSTOM_MEDIA = "✅ Media cleared succesfully."
+    FF_MPEG_DEL_ETED_CUSTOM_MEDIA = "✅ Media cleared successfully."
     CUSTOM_CAPTION_UL_FILE = ""
     NO_VOID_FORMAT_FOUND = "ERROR... <code>{}</code>"
     FREE_USER_LIMIT_Q_SZE = "Cannot Process, Time OUT..."
     SLOW_URL_DECED = """
-Gosh that seems to be a very slow URL. Since you were screwing my home,
-I am in no mood to download this file. Meanwhile, why don't you try this: ==> https://shrtz.me/PtsVnf6
-and get me a fast URL so that I can upload to Telegram, without me slowing down for other users.
+This link is too slow to download 😓  
+Try converting it using a faster URL shortener instead:  
+👉 https://shrtz.me/PtsVnf6  
 """
